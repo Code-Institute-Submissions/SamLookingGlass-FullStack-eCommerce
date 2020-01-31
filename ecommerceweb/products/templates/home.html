@@ -10,6 +10,12 @@
   <title>Djago Ecommer | manascode.com</title>
 </head>
 <body>
+  <li class="nav-item">
+      <a class="nav-link" href="{% url 'mainapp:cart-home' %}">
+        <i class="fa fa-shopping-cart"></i> Cart
+        <span class="badge badge-light">{{ request.user| cart_total }}</span>
+      </a>
+  </li>  
   <div class="container">
     <div class="row">
       {% for product in object_list %}
