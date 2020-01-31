@@ -67,3 +67,17 @@ def remove_from_cart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("core:home")
+
+# Functin to Display items in cart
+def CartView(request):
+    user = request.user
+    carts = Cart.objects.filter(user=user)
+    orders = Order.objects.filter(user=user, ordered=False)
+
+    if carts.exists():
+        order = orders[0]
+        return render(request, 'cart/home.html', {"carts": carts, 'order': order})
+		
+    else:
+        messages.warning(request, "You do not have an active order")
+        return redirect("core:home")
