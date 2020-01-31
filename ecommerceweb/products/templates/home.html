@@ -21,7 +21,8 @@
                         <p class="card-text">{{ product.preview_text }}</p>
                       </div>
                   <div class='card-footer text-center'>
-                  <a href="#" class="btn btn-success">Add to Cart</a>
+                  <a href="cart/{{ product.slug }}" class="btn btn-success">Add to Cart</a>
+                  <a href="remove/{{ product.slug }}" class="btn btn-danger">Remove from Cart</a>
                   </div>
                </div>
         </div>

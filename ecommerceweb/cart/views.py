@@ -1,5 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
+from .models import Cart, Order
+from products.models import Product
+from django.views.generic import ListView
+from django.contrib import messages
 
 # Function to add products to cart
 def add_to_cart(request, slug):
