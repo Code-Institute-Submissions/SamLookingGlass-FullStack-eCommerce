@@ -6,4 +6,4 @@ from products.models import Product
 # Displays html template
 class Home(ListView):
     model = Product
-    template_name = 'products/home.html'
+    template_name = 'home.html'
