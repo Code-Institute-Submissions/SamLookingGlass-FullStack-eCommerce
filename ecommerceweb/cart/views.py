@@ -86,3 +86,34 @@ def CartView(request):
     else:
         messages.warning(request, "You do not have any item in your Cart")
         return redirect("mainapp:home")
+
+# Decrease the quantity of the cart 
+def decreaseCart(request, slug):
+    item = get_object_or_404(Product, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.orderitems.filter(item__slug=item.slug).exists():
+            order_item = Cart.objects.filter(
+                item=item,
+                user=request.user
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity -= 1
+                order_item.save()
+            else:
+                order.orderitems.remove(order_item)
+                order_item.delete()
+                messages.warning(request, f"{item.name} has removed from your cart.")
+            messages.info(request, f"{item.name} quantity has updated.")
+            return redirect("mainapp:cart-home")
+        else:
+            messages.info(request, f"{item.name} quantity has updated.")
+            return redirect("mainapp:cart-home")
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("mainapp:cart-home")
