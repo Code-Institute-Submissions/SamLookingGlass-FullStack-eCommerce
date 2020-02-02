@@ -133,3 +133,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles').replace('\\','/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
 
+AUTH_USER_MODEL = 'accounts.MyUser' 
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by custom User model, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+)
