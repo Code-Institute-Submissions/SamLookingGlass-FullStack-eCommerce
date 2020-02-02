@@ -20,9 +20,9 @@ from django.conf import settings
 
 # Include all app urls here
 urlpatterns = [
-    path('admin/', admin.site.urls), #Django Admin Access
+    # path('admin/', admin.site.urls), #Django Admin Access
     path('', include('products.urls', namespace='mainapp')), #Reference point for mainapp
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
