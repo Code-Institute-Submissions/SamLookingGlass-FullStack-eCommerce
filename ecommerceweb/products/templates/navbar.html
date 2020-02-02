@@ -23,10 +23,10 @@
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'mainapp:cart-home' %}">
+        {% comment %} <a class="nav-link" href="{% url 'mainapp:cart-home' %}">
           <i class="fa fa-shopping-cart"></i> Cart
           <span class="badge badge-light">{{ request.user| cart_total }}</span>
-        </a>
+        </a> {% endcomment %}
       </li>
        <li class="nav-item">
         
@@ -37,7 +37,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Dashboard</a>
-          <a class="dropdown-item" href="{% url 'checkout:oderView' %}">Orders</a>
+          {% comment %} <a class="dropdown-item" href="{% url 'checkout:oderView' %}">Orders</a> {% endcomment %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Logout</a>
         </div>

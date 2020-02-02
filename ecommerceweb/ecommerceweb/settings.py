@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     'products', #products app
     'cart', #cart app
+    'allauth', #authentication main app
+    'allauth.account', #authentication account management app
+    'allauth.socialaccount', #authentication social account app
 ]
 
 MIDDLEWARE = [
@@ -71,6 +76,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecommerceweb.wsgi.application'
 
+# Authentication (BACKEND)
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+)
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

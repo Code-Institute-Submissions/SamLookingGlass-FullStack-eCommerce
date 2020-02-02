@@ -23,4 +23,12 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return f'{self.quantity} of {self.item.name}' 
+    
+    # Function to calculate total price and display it
+    def get_totals(self):
+        total = 0
+        for order_item in self.orderitems.all():
+            total += order_item.get_total()
+        
+        return total
