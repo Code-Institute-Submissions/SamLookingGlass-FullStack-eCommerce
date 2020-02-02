@@ -25,7 +25,7 @@ SECRET_KEY = '@b4itwq1bcx#y@1+u-pemchcvy$w)p=ga#2urcuai-@+i^%2qq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    # Updated Apps Listed here:
     'products', #products app
     'cart', #cart app
+    'accounts', #account authenication app 
 
 ]
 
