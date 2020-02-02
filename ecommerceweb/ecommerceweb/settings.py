@@ -141,3 +141,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles').replace('\\','/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
 
+# Settings for LOGIN
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
