@@ -22,6 +22,7 @@
         <a class="nav-link" href="#">Product Cat 2</a>
       </li>
       
+      {% comment %} Show if user has logged in {% endcomment %}
       {% if request.user.is_authenticated %}      
       <li class="nav-item">
         <a class="nav-link" href="{% url 'cart' %}">
@@ -38,13 +39,18 @@
       <li class="nav-item">
         <a  class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
       </li>
-
+      
+      {% comment %} Else if user has has not logged in, show {% endcomment %}
       {% else %}
        <li class="nav-item">
         <a  class="btn btn-primary" href="{% url 'login' %}">Login</a>
       </li>
+      <li class="nav-item">
+        <a  class="btn btn-danger" href="{% url 'register' %}">Register</a>
+      </li>
 
       {% endif %}
+
     </ul>
   </div>
   </div>

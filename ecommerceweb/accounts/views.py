@@ -1,12 +1,31 @@
-from django import forms
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, HttpResponse 
 from django.contrib import auth, messages
+from accounts.forms import UserLoginForm
 
-# Create your views here.
+# Forms
+from django import forms
+
 class UserLoginForm(forms.Form):
     """Form to login user"""
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+from .models import MyUser
+
+class UserRegistrationForm(UserCreationForm):
+    """Form used to register a new user"""
+
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Password Confirmation",
+        widget=forms.PasswordInput)
+    
+    class Meta:
+        model = MyUser
+        fields = ['email', 'username', 'password1', 'password2']
 
 # Login Function 
 def login(request):
@@ -43,3 +62,11 @@ def logout(request):
     auth.logout(request)
     messages.success(request, "You have successfully been logged out")
     return redirect(reverse('mainapp:home'))
+
+# Registration function
+
+def register(request):
+    form = UserRegistrationForm()
+    return render(request, 'register.html', {
+        'form':form
+    })

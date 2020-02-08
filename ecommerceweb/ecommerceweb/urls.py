@@ -17,18 +17,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static 
 from django.conf import settings 
-from accounts.views import login, logout
+from accounts.views import login, logout, register
 from cart.views import CartView
 
 # Include all app urls here
 urlpatterns = [
-    path('admin/', admin.site.urls), #Django Admin Access
-    path('', include('products.urls', namespace='mainapp')), #Reference point for mainapp
+    #Django Admin Access
+    path('admin/', admin.site.urls),
+    # Using namespace to cluster all products.url, contains homepage
+    path('', include('products.urls', namespace='mainapp')), 
     path('admin/', admin.site.urls),
     # Path for login
     path('login/', login, name='login'),
     # Path for logout
     path('logout/', logout, name='logout'),
+    # Path for registration
+    path('register/', register, name='register'),
 
     # Path for carts (Need to fix)
     path('cart/', CartView, name='cart'),

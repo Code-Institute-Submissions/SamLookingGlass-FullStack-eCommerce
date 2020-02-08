@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Cart, Order
 from products.models import Product
 from django.views.generic import ListView
