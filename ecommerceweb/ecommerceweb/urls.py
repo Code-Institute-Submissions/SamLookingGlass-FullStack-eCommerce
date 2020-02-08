@@ -17,12 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static 
 from django.conf import settings 
+from accounts.views import login
 
 # Include all app urls here
 urlpatterns = [
     path('admin/', admin.site.urls), #Django Admin Access
     path('', include('products.urls', namespace='mainapp')), #Reference point for mainapp
     path('admin/', admin.site.urls),
+    # Path for login
+    path('', login, name='login'),
+    # Path for logout
+    # path('logout/', logout, name='logout')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
