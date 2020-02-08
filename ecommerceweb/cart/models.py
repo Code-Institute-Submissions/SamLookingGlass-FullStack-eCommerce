@@ -32,3 +32,4 @@ class Order(models.Model):
             total += order_item.get_total()
         
         return total
+

@@ -25,7 +25,7 @@ urlpatterns = [
     path('', include('products.urls', namespace='mainapp')), #Reference point for mainapp
     path('admin/', admin.site.urls),
     # Path for login
-    path('', login, name='login'),
+    path('login/', login, name='login'),
     # Path for logout
     # path('logout/', logout, name='logout')
 
