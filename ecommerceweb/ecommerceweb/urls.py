@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static 
 from django.conf import settings 
 from accounts.views import login
+from cart.views import CartView
 
 # Include all app urls here
 urlpatterns = [
@@ -28,6 +29,9 @@ urlpatterns = [
     path('login/', login, name='login'),
     # Path for logout
     # path('logout/', logout, name='logout')
+
+    # Path for carts
+    path('cart/', login, name='cart'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
