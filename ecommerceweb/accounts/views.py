@@ -7,7 +7,8 @@ class UserLoginForm(forms.Form):
     """Form to login user"""
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-    
+
+# Login Function 
 def login(request):
     """Returns the login page"""
     if request.method == 'POST':
@@ -37,7 +38,8 @@ def login(request):
             'form':login_form
         })
 
-# def logout(request):
-#     auth.logout(request)
-#     messages.success(request, "You have successfully been logged out")
-#     return redirect(reverse('index'))
+# Logout Function
+def logout(request):
+    auth.logout(request)
+    messages.success(request, "You have successfully been logged out")
+    return redirect(reverse('mainapp:home'))

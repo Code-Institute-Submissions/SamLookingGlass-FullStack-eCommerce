@@ -78,7 +78,7 @@ def CartView(request):
     if carts.exists():
         if orders.exists():
             order = orders[0]
-            return render(request, 'cart/home.html', {"carts": carts, 'order': order})
+            return render(request, 'cart.html', {"carts": carts, 'order': order})
         else:
             messages.warning(request, "You do not have any item in your Cart")
             return redirect("mainapp:home")
