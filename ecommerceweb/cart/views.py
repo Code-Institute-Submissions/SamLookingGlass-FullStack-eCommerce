@@ -4,6 +4,25 @@ from products.models import Product
 from django.views.generic import ListView
 from django.contrib import messages
 
+# Function to Display items in cart
+def CartView(request):
+    user = request.user
+
+    carts = Cart.objects.filter(user=user, purchased=False)
+    orders = Order.objects.filter(user=user, ordered=False)
+
+    if carts.exists():
+        if orders.exists():
+            order = orders[0]
+            return render(request, 'cart.html', {"carts": carts, 'order': order})
+        else:
+            messages.warning(request, "You do not have any item in your Cart")
+            return redirect("mainapp:home")
+		
+    else:
+        messages.warning(request, "You do not have any item in your Cart")
+        return redirect("mainapp:home")
+
 # Function to add products to cart
 def add_to_cart(request, slug):
     item = get_object_or_404(Product, slug=slug)
@@ -66,25 +85,6 @@ def remove_from_cart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("core:home")
-
-# Functin to Display items in cart
-def CartView(request):
-    user = request.user
-
-    carts = Cart.objects.filter(user=user, purchased=False)
-    orders = Order.objects.filter(user=user, ordered=False)
-
-    if carts.exists():
-        if orders.exists():
-            order = orders[0]
-            return render(request, 'cart.html', {"carts": carts, 'order': order})
-        else:
-            messages.warning(request, "You do not have any item in your Cart")
-            return redirect("mainapp:home")
-		
-    else:
-        messages.warning(request, "You do not have any item in your Cart")
-        return redirect("mainapp:home")
 
 # Decrease the quantity of the cart 
 def decreaseCart(request, slug):
