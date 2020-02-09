@@ -39,8 +39,8 @@ def add_to_cart(request, slug):
             # Calculates quantity in cart
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "This item quantity was updated.")
-            return redirect("mainapp:home")
+            messages.info(request, f"{item.name} quantity has updated.")
+            return redirect("cartapp:cart")
         else:
             order.orderitems.add(order_item)
             messages.info(request, "This item was added to your cart.")
@@ -78,13 +78,13 @@ def remove_from_cart(request, slug):
             )[0]
             order.orderitems.remove(order_item)
             messages.info(request, "This item was removed from your cart.")
-            return redirect("mainapp:home")
+            return redirect("cartapp:cart")
         else:
             messages.info(request, "This item was not in your cart")
-            return redirect("mainapp:home")
+            return redirect("cartapp:cart")
     else:
         messages.info(request, "You do not have an active order")
-        return redirect("core:home")
+        return redirect("mainapp:home")
 
 # Decrease the quantity of the cart 
 def decreaseCart(request, slug):
@@ -109,10 +109,10 @@ def decreaseCart(request, slug):
                 order_item.delete()
                 messages.warning(request, f"{item.name} has removed from your cart.")
             messages.info(request, f"{item.name} quantity has updated.")
-            return redirect("mainapp:cart-home")
+            return redirect("cartapp:cart")
         else:
             messages.info(request, f"{item.name} quantity has updated.")
-            return redirect("mainapp:cart-home")
+            return redirect("cartapp:cart")
     else:
         messages.info(request, "You do not have an active order")
-        return redirect("mainapp:cart-home")
+        return redirect("mainapp:home")

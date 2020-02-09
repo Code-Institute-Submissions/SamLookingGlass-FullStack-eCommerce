@@ -7,5 +7,7 @@ app_name= 'cartapp'
 urlpatterns = [
     # Path for cartview
     path('', CartView, name='cart'),
+    # Path for decreasecart
+    path('decrease/<slug>', decreaseCart, name='decrease-cart')
 
 ]

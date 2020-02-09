@@ -33,7 +33,7 @@ urlpatterns = [
     # Reset Functionalities
     path('account/', include('django.contrib.auth.urls')), 
 
-    # Path for carts (Need to fix)
+    # Path for carts
     path('cart/', include('cart.urls', namespace='cart')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -17,16 +17,16 @@
   </thead>
   <tbody>
   	{% for cart in carts %}
-    {% comment %} <tr>
+    <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{ cart.item.name }}</td>
       <td>
-        <a class="mr-2" href="{% url 'mainapp:decrease-cart' cart.item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
+        <a class="mr-2" href="{% url 'cartapp:decrease-cart' cart.item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
       {{ cart.quantity }}
       <a class="ml-2" href="{% url 'mainapp:cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
       </td>
       <td>${{ cart.get_total }}</td>
-    </tr> {% endcomment %}
+    </tr> 
 	{% endfor %}
     <tr>
       <th scope="row"></th> 
