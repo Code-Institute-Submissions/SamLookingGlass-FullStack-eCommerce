@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from pyuploadcare.dj.models import ImageField
 
 # Category (Fields on Admin Dashboard)
 class Category(models.Model):

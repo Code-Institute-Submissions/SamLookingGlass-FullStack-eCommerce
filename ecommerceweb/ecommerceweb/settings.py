@@ -41,9 +41,16 @@ INSTALLED_APPS = [
     # Updated Apps Listed here:
     'products', #products app
     'cart', #cart app
-    'accounts', #account authenication app 
+    'accounts', #account authenication app
+    'pyuploadcare.dj',
+
 
 ]
+
+UPLOADCARE = {
+    'pub_key': '950dfff0d7e1f7dcb477',
+    'secret': '7fb5273f5fe4bb47268b',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
