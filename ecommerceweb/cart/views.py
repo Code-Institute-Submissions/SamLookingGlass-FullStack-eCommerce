@@ -8,8 +8,8 @@ from django.contrib import messages
 def CartView(request):
     user = request.user
 
-    carts = Cart.objects.filter(user=user, purchased=False)
-    orders = Order.objects.filter(user=user, ordered=False)
+    carts = Cart.objects.filter(user=user)
+    orders = Order.objects.filter(user=user)
 
     if carts.exists():
         if orders.exists():

@@ -25,7 +25,7 @@
       {% comment %} Show if user has logged in {% endcomment %}
       {% if request.user.is_authenticated %}      
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'cart' %}">
+        <a class="nav-link" href="{% url 'cartapp:cart' %}">
           <i class="fa fa-shopping-cart"></i> Cart
           <span class="badge badge-light">{{ request.user| cart_total }}</span>
         </a>
