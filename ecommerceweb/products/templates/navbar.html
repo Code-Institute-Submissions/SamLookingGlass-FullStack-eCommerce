@@ -2,56 +2,54 @@
 {% load cart_tag %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  {% if messages %}
   <div class="container">
-    {% for message in messages %} {{ message }} {% endfor %}
-  </div>
-  {% endif %}
-  
-  <div class="container">
-  <a class="navbar-brand" href="/">CI Ecommerce Project</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Teff</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li {% if request.path == 'contact' %}class="nav-item active"{% else %}class="nav-item"{% endif %}>
-        <a class="nav-link" href="#">Product Cat 1 <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Product Cat 2</a>
-      </li>
-      
-      {% comment %} Show if user has logged in {% endcomment %}
-      {% if request.user.is_authenticated %}      
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'cartapp:cart' %}">
-          <i class="fa fa-shopping-cart"></i> Cart
-          <span class="badge badge-light">{{ request.user| cart_total }}</span>
-        </a>
-      </li>
-      
-       <li class="nav-item">
-        <a class="nav-link" href="{% url 'accountsapp:profile' %}">
-          <i class="fas fa-user-tie"></i> Logged in As: {{ request.user.username }}
-        </a>
-      </li>
-      <li class="nav-item">
-        <a  class="btn btn-primary" href="{% url 'accountsapp:logout' %}">Logout</a>
-      </li>
-      
-      {% comment %} Else if user has has not logged in, show {% endcomment %}
-      {% else %}
-       <li class="nav-item">
-        <a  class="btn btn-primary" href="{% url 'accountsapp:login' %}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a  class="btn btn-danger" href="{% url 'accountsapp:register' %}">Register</a>
-      </li>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
 
-      {% endif %}
+        <li {% if request.path == 'contact' %}class="nav-item active"{% else %}class="nav-item"{% endif %}>
+          <a class="nav-link" href="#">T-Shirts<span class="sr-only">(current)</span></a>
+        </li>
 
-    </ul>
-  </div>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Others</a>
+        </li>
+
+        {% comment %} Show if user has logged in {% endcomment %}
+        {% if request.user.is_authenticated %}      
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cartapp:cart' %}">
+            <i class="fa fa-shopping-cart"></i> Cart
+            <span class="badge badge-light">{{ request.user| cart_total }}</span>
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accountsapp:profile' %}">
+            <i class="fas fa-user-tie"></i> Logged in As: {{ request.user.username }}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a  class="btn btn-primary" href="{% url 'accountsapp:logout' %}">Logout</a>
+        </li>
+        
+        {% comment %} Else if user has has not logged in, show {% endcomment %}
+        {% else %}
+        <li class="nav-item">
+          <a  class="btn btn-primary" href="{% url 'accountsapp:login' %}">Login</a>
+        </li>
+
+        <li class="nav-item">
+          <a  class="btn btn-danger" href="{% url 'accountsapp:register' %}">Register</a>
+        </li>
+
+        {% endif %}
+
+      </ul>
+    </div>
   </div>
 </nav>

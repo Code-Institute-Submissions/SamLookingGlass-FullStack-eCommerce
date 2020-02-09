@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% comment %} {% block content %}
+{% block content %}
 <div class="container my-5">
 <div class="my-5">
 	<h2>Your Cart</h2>
@@ -17,7 +17,7 @@
   </thead>
   <tbody>
   	{% for cart in carts %}
-    <tr>
+    {% comment %} <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{ cart.item.name }}</td>
       <td>
@@ -26,12 +26,12 @@
       <a class="ml-2" href="{% url 'mainapp:cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
       </td>
       <td>${{ cart.get_total }}</td>
-    </tr>
+    </tr> {% endcomment %}
 	{% endfor %}
     <tr>
       <th scope="row"></th> 
       <td colspan="2">Total</td>
-      <td>${{ order.get_totals| floatformat:2 }}</td>
+      {% comment %} <td>${{ order.get_totals| floatformat:2 }}</td> {% endcomment %}
     </tr>
     <tr>
       <th scope="row"></th>
@@ -44,4 +44,4 @@
 </table>
 </div>
 
-{% endblock %} {% endcomment %}
+{% endblock %}
