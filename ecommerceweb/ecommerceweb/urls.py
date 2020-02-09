@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Using namespace to cluster all products.urls, contains homepage
-    path('', include('products.urls', namespace='mainapp')),   
+    path('', include('products.urls', namespace='mainapp')), 
+
     # Using namespace to cluster all accounts.urls, contains account functions
     path('account/', include('accounts.urls', namespace='accounts')),
     # Reset Functionalities
