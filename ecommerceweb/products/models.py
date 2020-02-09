@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from pyuploadcare.dj.models import ImageField
 
+
 # Category (Fields on Admin Dashboard)
 class Category(models.Model):
     title = models.CharField(max_length=300, blank=True)
@@ -14,8 +15,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=300, blank=True)
     price = models.FloatField(blank=True)
-    product_image = models.ImageField(upload_to='products/', blank=True)
-    
+    product_photo = ImageField(blank=True, manual_crop="")
     slug = models.SlugField()
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
