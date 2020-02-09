@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse 
 from django.contrib import auth, messages
 from .forms import UserLoginForm, UserRegistrationForm
+from django.contrib.auth.decorators import login_required
 
 # Forms
 from django import forms
@@ -47,7 +48,6 @@ def logout(request):
     return redirect(reverse('mainapp:home'))
 
 # Registration function
-
 def register(request):
     User = get_user_model()
     if request.method == 'POST':
@@ -77,3 +77,11 @@ def register(request):
         return render(request, 'register.html', {
             'form':form
         })
+
+@login_required
+def profile(request):
+    User = get_user_model()
+    user = User.objects.get(email=request.user.email)
+    return render(request, 'profile.html', {
+        'user' : user
+    })
