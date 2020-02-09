@@ -29,7 +29,9 @@ urlpatterns = [
     path('', include('products.urls', namespace='mainapp')), 
 
     # Using namespace to cluster all accounts.urls, contains account functions
-    path('', include('accounts.urls', namespace='accounts')), 
+    path('account/', include('accounts.urls', namespace='accounts')),
+    # Reset Functionalities
+    path('account/', include('django.contrib.auth.urls')), 
 
     # Path for carts (Need to fix)
     path('cart/', CartView, name='cart'),
