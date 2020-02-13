@@ -19,26 +19,47 @@
   <tbody>
   	{% for cart in carts %}
     <tr>
+      {% comment %} Row Item {% endcomment %}
       <th scope="row">{{ forloop.counter }}</th>
-        <td>{{ cart.item.name }}</td>
-        <td>
-          <a class="mr-2" href="{% url 'cartapp:decrease-cart' cart.item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
-          {{ cart.quantity }}
-          <a class="ml-2" href="{% url 'cartapp:add-cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
-        </td>
-        <td>${{ cart.get_total }}</td>
-        <td><a href="{% url 'cartapp:remove-cart' cart.item.slug %}" class="btn btn-danger btn-sm"> Remove</a></td>
-        
+      {% comment %} Product Name {% endcomment %}
+      <td>{{ cart.item.name }}</td>
+      
+      <td>
+      {% comment %} - {% endcomment %}
+      <a class="mr-2" href="{% url 'cartapp:decrease-cart' cart.item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
+      {% comment %} Cart Quantity {% endcomment %}
+      {{ cart.quantity }}
+      {% comment %} + {% endcomment %}
+      <a class="ml-2" href="{% url 'cartapp:add-cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
+      </td>
+      
+      {% comment %} Item Price {% endcomment %}
+      <td>$ {{ cart.item.price }}</td>
+
+      {% comment %} Remove Cart Item {% endcomment %}
+      <td><a href="{% url 'cartapp:remove-cart' cart.item.slug %}" class="btn btn-danger mr-2">Remove</a></td>
+  
     </tr> 
 	{% endfor %}
     <tr>
-      <th scope="row"></th> 
-      <td colspan="2">Total</td>
-      {% comment %} <td>${{ order.get_totals| floatformat:2 }}</td> {% endcomment %}
+      {% comment %} Empty {% endcomment %}
+      <th scope="row"></th>
+
+      {% comment %} Total  {% endcomment %}
+      <td colspan="1">Total</td>
+      
+      {% comment %} Empty {% endcomment %}
+      <th scope="row"></th>
+
+      {% comment %} Subtotal {% endcomment %}
+      <td>${{ order.cart_subtotal| floatformat:2 }}</td>
+      
+      {% comment %} Empty {% endcomment %}
+      <th scope="row"></th>
     </tr>
     <tr>
       <th scope="row"></th>
-      <td colspan="3" class="text-right ">
+      <td colspan="5" class="text-right ">
         <a href="{% url 'mainapp:home' %}" class="btn btn-warning mr-4" >Continue Shoping</a>
         <button class="btn btn-success mr-4">Proceed To Checkout</button>
       </td>

@@ -40,7 +40,7 @@ def add_to_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, f"{item.name} quantity has updated.")
-            return redirect("cartapp:cart")
+            return redirect("mainapp:home")
         else:
             order.orderitems.add(order_item)
             messages.info(request, "This item was added to your cart.")
@@ -52,18 +52,20 @@ def add_to_cart(request, slug):
         messages.info(request, "This item was added to your cart.")
         return redirect("mainapp:home")
 
-# Function to remove product from cart
+# Function to remove product from cart (Buggy)
 def remove_from_cart(request, slug):
     item = get_object_or_404(Product, slug=slug)
     cart_qs = Cart.objects.filter(user=request.user, item=item)
     if cart_qs.exists():
         cart = cart_qs[0]
+        cart_qs.delete()
         # Checking the cart quantity
-        if cart.quantity > 1:
-            cart.quantity -= 1
-            cart.save()
-        else:
-            cart_qs.delete()
+        # if cart.quantity > 1:
+            # cart.quantity -= 1
+            # cart_qs.delete()
+            # cart.save()
+        # else:
+            # cart_qs.delete()
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False
@@ -80,7 +82,7 @@ def remove_from_cart(request, slug):
             messages.info(request, "This item was removed from your cart.")
             return redirect("cartapp:cart")
         else:
-            messages.info(request, "This item was not in your cart")
+            # messages.info(request, "This item was not in your cart")
             return redirect("cartapp:cart")
     else:
         messages.info(request, "You do not have an active order")
@@ -116,3 +118,15 @@ def decreaseCart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("mainapp:home")
+
+# Function to calculate subtotal (buggy)
+def cart_subtotal(request, slug):
+  item = get_object_or_404(Product, slug=slug)
+  cart_qs = Cart.objects.filter(user=request.user, item=item)
+  if cart_qs.exists():
+        cart = cart_qs[0]
+        quantity = cart.quantity
+        price = cart.item.price
+        for cart_item in cart_qs:
+            cart_total = price * quantity
+  return cart_total        
