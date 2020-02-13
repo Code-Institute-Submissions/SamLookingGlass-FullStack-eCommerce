@@ -7,3 +7,12 @@ from products.models import Product
 class Home(ListView):
     model = Product
     template_name = 'home.html'
+
+# Function to display product view
+def ProductView(request, slug):
+    results = Product.objects.get(slug=slug)
+    context = {
+        'product' : results
+    }
+    return render(request, "product_detail.html", context)
+
