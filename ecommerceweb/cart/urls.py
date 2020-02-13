@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CartView, add_to_cart, remove_from_cart, decreaseCart, increaseCart, cart_subtotal
+from .views import CartView, add_to_cart, remove_from_cart, decreaseCart, increaseCart
 from products.views import Home
 
 app_name= 'cartapp'
@@ -15,7 +15,5 @@ urlpatterns = [
     path('add/<slug>', add_to_cart, name='add-cart'),
     # Path for remove_from_cart
     path('remove/<slug>', remove_from_cart, name='remove-cart'),
-    # Path for cart_subtotal
-    path('subtotal/<slug>', cart_subtotal, name='subtotal'),
 
 ]

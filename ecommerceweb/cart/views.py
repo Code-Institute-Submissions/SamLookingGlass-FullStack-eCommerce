@@ -146,15 +146,3 @@ def increaseCart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("mainapp:home")
 
-
-# Function to calculate subtotal (buggy)
-def cart_subtotal(request, slug):
-  item = get_object_or_404(Product, slug=slug)
-  cart_qs = Cart.objects.filter(user=request.user, item=item)
-  if cart_qs.exists():
-        cart = cart_qs[0]
-        quantity = cart.quantity
-        price = cart.item.price
-        for cart_item in cart_qs:
-            cart_total = price * quantity
-  return cart_total        
