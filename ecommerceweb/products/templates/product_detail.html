@@ -2,7 +2,6 @@
 
 {% load static %}  
 
-
 {% block content %}
 
  <!--Main layout-->
@@ -30,12 +29,6 @@
               <a href="">
                 <span class="badge purple mr-1">{{product.category}}</span>
               </a>
-              <a href="">
-                <span class="badge blue mr-1">New</span>
-              </a>
-              <a href="">
-                <span class="badge red mr-1">Bestseller</span>
-              </a>
             </div>
 
             <p class="lead">
@@ -44,7 +37,10 @@
 
             <p class="lead font-weight-bold">Description</p>
 
-            <p>{{ Product.description }}</p>
+            <p>{{ product.detail_text }}</p>
+
+			{% comment %} <a href="{% url 'cartapp:add-cart' product.slug %}" class="btn btn-primary btn-sm"> Add to Cart </a>
+			<a href="{% url 'cartapp:cart' %}" class="btn btn-primary btn-sm"> View Cart </a> {% endcomment %}
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
