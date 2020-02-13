@@ -11,9 +11,9 @@ class Cart(models.Model):
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     created = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
-        return self.title
+        return self.user 
 
 # Order (Fields on Admin Dashboard)
 class Order(models.Model):
@@ -23,7 +23,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.quantity} of {self.item.name}' 
+        return self.user
     
     # Function to calculate total price and display it
     def get_totals(self):

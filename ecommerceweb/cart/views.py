@@ -40,11 +40,14 @@ def add_to_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, f"{item.name} quantity has updated.")
+            # if request.get_full_path == mainapp:home:
             return redirect("mainapp:home")
+            # return
         else:
             order.orderitems.add(order_item)
             messages.info(request, "This item was added to your cart.")
             return redirect("mainapp:home")
+            # return
     else:
         order = Order.objects.create(
             user=request.user)
@@ -118,6 +121,31 @@ def decreaseCart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("mainapp:home")
+
+# Increase the quantity of the cart 
+def increaseCart(request, slug):
+    item = get_object_or_404(Product, slug=slug)
+    order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+    )
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.orderitems.filter(item__slug=item.slug).exists():
+            order_item = Cart.objects.filter(
+                item=item,
+                user=request.user
+            )[0]
+            if order_item.quantity > 1:
+                order_item.quantity += 1
+                order_item.save()
+                messages.info(request, f"{item.name} quantity has updated.")
+                return redirect("cartapp:cart")
+    else:
+        messages.info(request, "You do not have an active order")
+        return redirect("mainapp:home")
+
 
 # Function to calculate subtotal (buggy)
 def cart_subtotal(request, slug):

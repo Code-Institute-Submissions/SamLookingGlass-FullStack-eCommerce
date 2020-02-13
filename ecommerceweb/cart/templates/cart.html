@@ -30,7 +30,7 @@
       {% comment %} Cart Quantity {% endcomment %}
       {{ cart.quantity }}
       {% comment %} + {% endcomment %}
-      <a class="ml-2" href="{% url 'cartapp:add-cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
+      <a class="ml-2" href="{% url 'cartapp:increase-cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
       </td>
       
       {% comment %} Item Price {% endcomment %}
