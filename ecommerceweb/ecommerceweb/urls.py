@@ -20,6 +20,7 @@ from django.conf import settings
 # from accounts.views import login, logout, register, profile
 from cart.views import CartView
 
+
 # Include all app urls here
 urlpatterns = [
     #Django Admin Access
@@ -35,6 +36,8 @@ urlpatterns = [
 
     # Path for carts
     path('cart/', include('cart.urls', namespace='cart')),
+    # Path for checkout
+    path('checkout/', include('checkout.urls', namespace='checkout')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

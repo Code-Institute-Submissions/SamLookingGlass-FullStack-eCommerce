@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'cart', #cart app
     'accounts', #account authenication app
     'pyuploadcare.dj',
-
+    'checkout', #checkout app
 
 ]
 
