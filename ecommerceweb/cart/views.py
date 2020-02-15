@@ -17,10 +17,11 @@ def CartView(request):
 
 # Function to add products to cart
 def add_to_cart(request, slug):
+    source_url = request.META.get('HTTP_REFERER')
     item = get_object_or_404(Product, slug=slug)
     user = request.user    
     carts = Cart.objects.get(user=user)
-    # Check if method is GET, if yes do this (User added from home page):
+    # Check if method is GET, if yes do this (User added from home page/cart page):
     if request.method == "GET":
         # Check if item exists in cart, if it exists, increase quantity in cart
         if carts.item.all().filter(pk=item.id):
@@ -28,8 +29,10 @@ def add_to_cart(request, slug):
             cart=carts)
             cart_product_intermediary.quantity += 1
             cart_product_intermediary.save()
-            messages.info(request, f"{item.name} quantity has updated in cart.")
-            return redirect("mainapp:home")
+            messages.info(request, f"{item.name} quantity has been updated in cart.")
+            if source_url[-5:] == 'cart/':
+                return redirect("cartapp:cart")    
+            return redirect("mainapp:home")   
         # If item does not exist in cart, add to cart.
         else:
             carts.item.add(
@@ -50,7 +53,7 @@ def add_to_cart(request, slug):
             cart=carts)
             cart_product_intermediary.quantity += user_quantity
             cart_product_intermediary.save()
-            messages.info(request, f"{item.name} quantity has updated in cart.")
+            messages.info(request, f"{item.name} quantity has been updated in cart.")
             return redirect("mainapp:ProductView", slug=item.slug)
         # If item does not exists in cart, do this:
         else:
@@ -63,7 +66,8 @@ def add_to_cart(request, slug):
             messages.info(request, "This item was added to your cart.")    
     return redirect("mainapp:ProductView", slug=item.slug)
 
-
+def increaseCart(request, slug):
+    pass
 
 # Function to remove product from cart (Buggy)
 def remove_from_cart(request, slug):
@@ -101,58 +105,23 @@ def remove_from_cart(request, slug):
         messages.info(request, "You do not have an active order")
         return redirect("mainapp:home")
 
-# Decrease the quantity of the cart 
+# Function to decrease quantity to cart (WIP)
 def decreaseCart(request, slug):
     item = get_object_or_404(Product, slug=slug)
-    order_qs = Order.objects.filter(
-        user=request.user,
-        ordered=False
-    )
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.orderitems.filter(item__slug=item.slug).exists():
-            order_item = Cart.objects.filter(
-                item=item,
-                user=request.user
-            )[0]
-            if order_item.quantity > 1:
-                order_item.quantity -= 1
-                order_item.save()
-            else:
-                order.orderitems.remove(order_item)
-                order_item.delete()
-                messages.warning(request, f"{item.name} has removed from your cart.")
-            messages.info(request, f"{item.name} quantity has updated.")
+    user = request.user    
+    carts = Cart.objects.get(user=user)
+    
+    # Check if item exists in cart, if it exists, decrease quantity in cart
+    if carts.item.all().filter(pk=item.id):
+        # Filters out the exact product
+        cart_product_intermediary = Cart_product_intermediary.objects.get(product=item,
+        cart=carts)
+        if cart_product_intermediary.quantity > 1:
+            cart_product_intermediary.quantity -= 1
+            cart_product_intermediary.save()
+            messages.info(request, f"{item.name} quantity has been updated.")
             return redirect("cartapp:cart")
         else:
-            messages.info(request, f"{item.name} quantity has updated.")
+            cart_product_intermediary.delete()
+            messages.warning(request, f"{item.name} has removed from your cart.")   
             return redirect("cartapp:cart")
-    else:
-        messages.info(request, "You do not have an active order")
-        return redirect("mainapp:home")
-
-# Increase the quantity of the cart 
-def increaseCart(request, slug):
-    item = get_object_or_404(Product, slug=slug)
-    order_qs = Order.objects.filter(
-        user=request.user,
-        ordered=False
-    )
-    if order_qs.exists():
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.orderitems.filter(item__slug=item.slug).exists():
-            order_item = Cart.objects.filter(
-                item=item,
-                user=request.user
-            )[0]
-            if order_item.quantity > 1:
-                order_item.quantity += 1
-                order_item.save()
-                messages.info(request, f"{item.name} quantity has updated.")
-                return redirect("cartapp:cart")
-    else:
-        messages.info(request, "You do not have an active order")
-        return redirect("mainapp:home")
-
