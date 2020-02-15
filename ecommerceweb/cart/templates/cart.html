@@ -17,29 +17,31 @@
     </tr>
   </thead>
   <tbody>
-  	{% for cart in carts %}
+  	{% for item in carts.item.all %}
+    {% for i in item.cart_product_intermediary_set.all %}
     <tr>
       {% comment %} Row Item {% endcomment %}
       <th scope="row">{{ forloop.counter }}</th>
       {% comment %} Product Name {% endcomment %}
-      <td>{{ cart.item.name }}</td>
+      <td>{{ item.name }}</td>
       
       <td>
       {% comment %} - {% endcomment %}
-      <a class="mr-2" href="{% url 'cartapp:decrease-cart' cart.item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
+      <a class="mr-2" href="{% url 'cartapp:decrease-cart' item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
       {% comment %} Cart Quantity {% endcomment %}
-      {{ cart.quantity }}
+      {{ i.quantity }}
       {% comment %} + {% endcomment %}
-      <a class="ml-2" href="{% url 'cartapp:increase-cart' cart.item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
+      <a class="ml-2" href="{% url 'cartapp:increase-cart' item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
       </td>
       
       {% comment %} Item Price {% endcomment %}
-      <td>$ {{ cart.item.price }}</td>
+      <td>$ {{ item.price }}</td>
 
       {% comment %} Remove Cart Item {% endcomment %}
-      <td><a href="{% url 'cartapp:remove-cart' cart.item.slug %}" class="btn btn-danger mr-2">Remove</a></td>
+      <td><a href="{% url 'cartapp:remove-cart' item.slug %}" class="btn btn-danger mr-2">Remove</a></td>
   
     </tr> 
+    {% endfor %}
 	{% endfor %}
     <tr>
       {% comment %} Empty {% endcomment %}
