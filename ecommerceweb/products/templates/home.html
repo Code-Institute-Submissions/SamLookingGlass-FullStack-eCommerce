@@ -19,7 +19,7 @@
 					<a href="{% url 'mainapp:ProductView' product.slug %}">
 					{{ product.name }}</a></h6>
 					<p>{{ product.detail_text }}</p>
-					{% comment %} If not login, cart crashes {% endcomment %}
+					{% comment %} If user login, cart crashes {% endcomment %}
 					<div class="action-wrap">
 						<a href="{% url 'cartapp:add-cart' product.slug %}" class="btn btn-primary btn-sm"> Add to Cart </a>
 						<a href="{% url 'cartapp:cart' %}" class="btn btn-primary btn-sm"> View Cart </a>

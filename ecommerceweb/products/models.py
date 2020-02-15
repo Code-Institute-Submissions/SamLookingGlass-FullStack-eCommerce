@@ -23,7 +23,6 @@ class Product(models.Model):
     preview_text = models.TextField(max_length=200, verbose_name='Preview Text')
     detail_text = models.TextField(max_length=1000, verbose_name='Detail Text')
     
-    
 
     def __str__(self):
         return self.name

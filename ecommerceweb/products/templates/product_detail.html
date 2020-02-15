@@ -42,7 +42,7 @@
 			{% comment %} <a href="{% url 'cartapp:add-cart' product.slug %}" class="btn btn-primary btn-sm"> Add to Cart </a>
 			<a href="{% url 'cartapp:cart' %}" class="btn btn-primary btn-sm"> View Cart </a> {% endcomment %}
 
-            <form class="d-flex justify-content-left" method="GET" action = {% url 'mainapp:variable_add_to_cart' product.slug %}>
+            <form class="d-flex justify-content-left" method="POST" action = {% url 'cartapp:add-cart' product.slug %}>
               {% csrf_token %}
               <!-- Default input -->
               <input id='quantity' name = 'quantity' type="number" value="1" min='1' aria-label="Search" class="form-control" style="width: 100px">

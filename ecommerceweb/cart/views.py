@@ -6,47 +6,31 @@ from django.contrib import messages
 
 # Function to Display items in cart
 def CartView(request):
+    # Get user info from database
     user = request.user    
-    print(user)
-
-    print("ASD")
     try:
         carts = Cart.objects.get(user=user)
     except Cart.DoesNotExist:
         carts = Cart.objects.create(user=user)
-    # orders = Order.objects.get(user=user) 
     order = None
-
-    print(carts)
     return render(request, 'cart.html', {"carts": carts, 'order': order})
-    
-
-    # print(carts.orders)    
-    # if carts.exists():
-    #     if orders.exists():
-    #         order = orders[0]
-    #         return render(request, 'cart.html', {"carts": carts, 'order': order})
-    #     else:
-    #         messages.warning(request, "You do not have any item in your Cart")
-    #         return redirect("mainapp:home")
-		
-    # else:
-    #     messages.warning(request, "You do not have any item in your Cart")
-    #     return redirect("mainapp:home")
 
 # Function to add products to cart
 def add_to_cart(request, slug):
     item = get_object_or_404(Product, slug=slug)
     user = request.user    
     carts = Cart.objects.get(user=user)
+    # Check if method is GET, if yes do this (User added from home page):
     if request.method == "GET":
-        
-       
+        # Check if item exists in cart, if it exists, increase quantity in cart
         if carts.item.all().filter(pk=item.id):
             cart_product_intermediary = Cart_product_intermediary.objects.get(product=item,
             cart=carts)
             cart_product_intermediary.quantity += 1
             cart_product_intermediary.save()
+            messages.info(request, f"{item.name} quantity has updated in cart.")
+            return redirect("mainapp:home")
+        # If item does not exist in cart, add to cart.
         else:
             carts.item.add(
                 item,
@@ -54,57 +38,30 @@ def add_to_cart(request, slug):
                     'quantity':1,
                 }
             )
-        
+            messages.info(request, "This item was added to your cart.")
+            return redirect("mainapp:home")    
+    # Check if method is not GET (i.e. POST), do this (User added from product info page):
     else:
-        # request.POST.get('quantity')
-        if carts.item.all().get(pk=item.id):
+        # Get user defined quantity from POST method
+        user_quantity = int(request.POST.get('quantity'))
+        # Check if item exists in cart, if yes, do this:
+        if carts.item.all().filter(pk=item.id):
             cart_product_intermediary = Cart_product_intermediary.objects.get(product=item,
             cart=carts)
-            #cart_product_intermediary.quantity +=request.POST.get('quantity')
+            cart_product_intermediary.quantity += user_quantity
             cart_product_intermediary.save()
+            messages.info(request, f"{item.name} quantity has updated in cart.")
+            return redirect("mainapp:ProductView", slug=item.slug)
+        # If item does not exists in cart, do this:
         else:
-            #carts.item.add(
-           #     item,
-           #     through_defaults ={
-           #         'quantity':#request.POST.get('quantity'),
-            #    }
-        #    )   
-            pass
-
-    return redirect("mainapp:home")
-
-     
-
-    # order_item, created = Cart.objects.get_or_create(
-    #     item=item,
-    #     user=request.user
-    # )
-    # order_qs = Order.objects.filter(user=request.user, ordered=False)
-    
-    # if order_qs.exists():
-    #     order = order_qs[0]
-    #     # Check if the product item is in the order
-    #     if order.orderitems.filter(item__slug=item.slug).exists():
-    #         # Calculates quantity in cart
-    #         order_item.quantity += 1
-    #         order_item.save()
-    #         messages.info(request, f"{item.name} quantity has updated.")
-    #         # if request.get_full_path == mainapp:home:
-    #         return redirect("mainapp:home")
-    #         # return
-    #     else:
-    #         order.orderitems.add(order_item)
-    #         messages.info(request, "This item was added to your cart.")
-    #         return redirect("mainapp:home")
-    #         # return
-    # else:
-    #     order = Order.objects.create(
-    #         user=request.user)
-    #     order.orderitems.add(order_item)
-    #     messages.info(request, "This item was added to your cart.")
-    #     return redirect("mainapp:home")
-
-
+            carts.item.add(
+                item,
+                through_defaults ={
+                    'quantity':1,
+                }
+            )
+            messages.info(request, "This item was added to your cart.")    
+    return redirect("mainapp:ProductView", slug=item.slug)
 
 
 
