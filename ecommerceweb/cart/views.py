@@ -85,7 +85,7 @@ def remove_from_cart(request, slug):
         return redirect("cartapp:cart")
 
 
-# Function to decrease quantity to cart (WIP)
+# Function to decrease quantity to cart
 def decreaseCart(request, slug):
     item = get_object_or_404(Product, slug=slug)
     user = request.user    
