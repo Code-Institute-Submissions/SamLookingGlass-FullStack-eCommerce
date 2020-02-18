@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="single-product-area section-padding-100 clearfix">
+<h2>Update account information</h2>
+        <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-danger">
+        </form>
+</div>        
+{% endblock %}

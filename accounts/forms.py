@@ -44,3 +44,29 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Passwords must match")
         
         return password2        
+
+class UpdateProfile(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
+    class Meta:
+        model = MyUser
+        fields = ('email', 'first_name', 'last_name')
+
+    def clean_email(self):
+        User = get_user_model()
+        email = self.cleaned_data.get('email')
+
+        if email and User.objects.filter(email=email).count():
+            raise forms.ValidationError('This email address is already in use. Please supply a different email address.')
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+
+        if commit:
+            user.save()
+
+        return user

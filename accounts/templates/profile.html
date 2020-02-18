@@ -4,12 +4,16 @@
 {% block content %}
 
 <div class="single-product-area section-padding-100 clearfix">
-<h2>Your Account</h2>
+<h2>Your account information</h2>
 <p>____________________________________________________</p>
 <h6>Username: {{ user.username }}</h6>
+<h6>First Name: {{ user.first_name }}</h6>
+<h6>Last Name: {{ user.last_name }}</h6>
 <h6>Email: {{ user.email }}</h6>
 <h6>Last login at: {{ user.last_login }}</h6>
 <h6>Password reset:    <a class="btn btn-info" href="/password_reset">Reset</a></p>
+<h6>Update information:    <a class="btn btn-primary" href="{% url 'accountsapp:update' %}">Update</a></p>
 </h6>
 <p>____________________________________________________</p>
+</div>
 {% endblock %}

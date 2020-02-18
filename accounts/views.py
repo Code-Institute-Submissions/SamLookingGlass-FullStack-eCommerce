@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from .models import MyUser
 from django.contrib.auth import get_user_model
+from .forms import UpdateProfile
  
 # Login Function 
 def login(request):
@@ -85,3 +86,21 @@ def profile(request):
     return render(request, 'profile.html', {
         'user' : user
     })
+
+# Update account information (Additional form for User Interaction)
+def update(request):
+    args = {}
+    if request.method == 'POST':
+        form = UpdateProfile(request.POST, instance=request.user)
+        form.actual_user = request.user
+        #1 Check if entries on the form are valid
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account information updated successfully.")
+    else:
+        form = UpdateProfile()
+
+    args['form'] = form
+    return render(request, 'update.html', args)
+
+    
