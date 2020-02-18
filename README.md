@@ -7,7 +7,7 @@ This project focuses on the full-stack development for a mobile-responsive web-b
 The website has a login feature and requires users to create an account before they are able to check out items for purchase. 
 
 # Demo
-The e-commerce website can be found here: 
+The e-commerce website can be found here: https://teff-deployment.herokuapp.com/
 The website has been deployed successfully on heroku but currently has a couple of bugs and features that are not working. The source code, however, is available for inspection. 
 
 # Index
