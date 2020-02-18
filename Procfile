@@ -1,1 +1,1 @@
-web: gunicorn FullStack-eCommerce.wsgi:application
+web: gunicorn ecommerceweb.wsgi:application
