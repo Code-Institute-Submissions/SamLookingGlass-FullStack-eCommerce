@@ -3,8 +3,10 @@ from .models import Cart, Order, Cart_product_intermediary
 from products.models import Product
 from django.views.generic import ListView
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Function to Display items in cart
+@login_required
 def CartView(request):
     # Get user info from database
     user = request.user    
@@ -16,6 +18,7 @@ def CartView(request):
     return render(request, 'cart.html', {"carts": carts, 'order': order})
 
 # Function to add products to cart
+@login_required
 def add_to_cart(request, slug):
     source_url = request.META.get('HTTP_REFERER')
     item = get_object_or_404(Product, slug=slug)
