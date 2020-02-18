@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'ecommerceweb-tsw.herokuapp.com'
+    'teff-deployment.herokuapp.com',
     ]
 
 # Application definition
