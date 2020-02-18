@@ -13,5 +13,5 @@ urlpatterns = [
     # Path for registration
     path('register/', register, name='register'),
     # Path for viewing profile
-    path('profile/', profile, name='profile')
+    path('profile/', profile, name='profile'),
 ]

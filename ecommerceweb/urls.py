@@ -25,7 +25,7 @@ from cart.views import CartView
 urlpatterns = [
     #Django Admin Access
     path('admin/', admin.site.urls),
-
+    path('', include('django.contrib.auth.urls')),
     # Using namespace to cluster all products.urls, contains homepage
     path('', include('products.urls', namespace='mainapp')), 
 
