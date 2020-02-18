@@ -63,7 +63,7 @@ def add_to_cart(request, slug):
             carts.item.add(
                 item,
                 through_defaults ={
-                    'quantity':1,
+                    'quantity':user_quantity,
                 }
             )
             messages.info(request, "This item was added to your cart.")    

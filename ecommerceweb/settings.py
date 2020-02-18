@@ -42,18 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'pyuploadcare.dj', #UploadCare
     # Updated Apps Listed here:
     'products', #products app
     'cart', #cart app
     'accounts', #account authenication app
-    'pyuploadcare.dj',
     'checkout', #checkout app
-
 ]
 
 UPLOADCARE = {
-    'pub_key': '950dfff0d7e1f7dcb477',
-    'secret': '7fb5273f5fe4bb47268b',
+    'pub_key': os.environ.get('UPLOADCARE_PUBLISHABLE_KEY'),
+    'secret': os.environ.get('UPLOADCARE_SECRET_KEY'),
 }
 
 MIDDLEWARE = [
@@ -91,18 +90,19 @@ WSGI_APPLICATION = 'ecommerceweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
+#     'default': dj_database_url.parse(
+#         os.environ.get("POSTGRESQL_URL")
+#         )
 # }
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get("POSTGRESQL_URL")
-        )
-}
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -142,13 +142,13 @@ USE_TZ = True
 # Directory path for static files and static templates
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static').replace('\\','/'),
+    os.path.join(BASE_DIR, 'static'),
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles').replace('\\','/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Directory path for uploaded media
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'accounts.MyUser' 
 

@@ -2,72 +2,79 @@
 {% load static %}
 
 {% block content %}
-<div class="container my-5">
-<div class="my-5">
-	<h2>Your Cart</h2>
-</div>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-  	{% for item in carts.item.all %}
-    {% for i in item.cart_product_intermediary_set.all %}
-    <tr>
-      {% comment %} Row Item {% endcomment %}
-      <th scope="row">{{ forloop.counter }}</th>
-      {% comment %} Product Name {% endcomment %}
-      <td>{{ item.name }}</td>
-      
-      <td>
-      {% comment %} - {% endcomment %}
-      <a class="mr-2" href="{% url 'cartapp:decrease-cart' item.slug %}"><span class="badge badge-light"><i class="fas fa-minus"></i></span></a>
-      {% comment %} Cart Quantity {% endcomment %}
-      {{ i.quantity }}
-      {% comment %} + {% endcomment %}
-      <a class="ml-2" href="{% url 'cartapp:add-cart' item.slug %}" ><span class="badge badge-light"><i class="fas fa-plus"></i></span></a>
-      </td>
-      
-      {% comment %} Item Price {% endcomment %}
-      <td>$ {{ item.price }}</td>
+    <!-- ##### Main Content Wrapper Start ##### -->
+        <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Shopping Cart</h2>
+                        </div>
 
-      {% comment %} Remove Cart Item {% endcomment %}
-      <td><a href="{% url 'cartapp:remove-cart' item.slug %}" class="btn btn-danger mr-2">Remove</a></td>
-  
-    </tr> 
-    {% endfor %}
-	{% endfor %}
-    <tr>
-      {% comment %} Empty {% endcomment %}
-      <th scope="row"></th>
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in carts.item.all %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}
+                                        </td>
+                                        {% for i in item.cart_product_intermediary_set.all %}
+                                        {% comment %} Product Name {% endcomment %}
+                                        <td class="cart_product_desc">
+                                            <h5>{{ item.name }}</h5>
+                                        </td>
 
-      {% comment %} Total  {% endcomment %}
-      <td colspan="1">Total</td>
-      
-      {% comment %} Empty {% endcomment %}
-      <th scope="row"></th>
+                                        <td class="price">
+                                            <span>${{ item.price }}</span>
+                                        </td>
 
-      {% comment %} Subtotal {% endcomment %}
-      <td>${{ order.cart_subtotal| floatformat:2 }}</td>
-      
-      {% comment %} Empty {% endcomment %}
-      <th scope="row"></th>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td colspan="5" class="text-right ">
-        <a href="{% url 'mainapp:home' %}" class="btn btn-warning mr-4" >Continue Shoping</a>
-        <a href="{% url 'checkoutapp:checkout' %}" class="btn btn-success mr-4" >Proceed To Checkout</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
+                                        <td class="qty">
+                                            <div class="qty-btn d-flex">
+                                                <div class="quantity">
+                                                {% comment %} - {% endcomment %}
+                                                    <a href="{% url 'cartapp:decrease-cart' item.slug %}"><span class="qty-minus" ><i class="fa fa-minus" aria-hidden="true"></i></span></a>      
+                                                {% comment %} Number {% endcomment %}
+                                                    <p style='margin-right:-5pt'>{{ i.quantity }}</p>
+                                                {% comment %} + {% endcomment %}
+                                                    <a href="{% url 'cartapp:add-cart' item.slug %}"><span class="qty-plus" ><i class="fa fa-plus" aria-hidden="true"></i></span></a>
+                                                {% comment %} Remove {% endcomment %}   
+                                                    <a href="{% url 'cartapp:remove-cart' item.slug %}" class="btn btn-danger mr-2">Remove</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    {% endfor %}
+                                    {% endfor %}
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Cart Total</h5>
+                            <ul class="summary-table">
+                                <li><span>delivery:</span> <span>Free</span></li>
+                            </ul>
+                            <div class="cart-btn mt-100">
+                                <a href="{% url 'checkoutapp:checkout' %}" class="btn amado-btn w-100">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
 {% endblock %}
