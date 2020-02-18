@@ -62,16 +62,13 @@ The website has been deployed successfully on heroku but currently has a couple 
 # 4. Testing
 
 Django Admin Account
-ID: user
+ID: superuser
 Password: password
 
 1. Admin is able to create/edit/delete entries on the categorys.
-2. Admin is able to create/edit/delete entries on the items.
-3. Admin is able to create/edit/delete entries on the inventorys.
-4. Admin is able to create/edit/delete entries on the sizes.
-5. Admin is able to create/edit/delete entries on the tags.
-6. User is able to create an account and login.
-7. User is able update account information
+2. Admin is able to create/edit/delete entries on the products.
+3. User is able to create an account and login.
+4. User is able update account information on the backend.
 
 # 5. Deployment
 #### (i) Development Process
