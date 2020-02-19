@@ -2,13 +2,14 @@
 
 # Context
 
-This project focuses on the full-stack development for a mobile-responsive web-based e-commerce website called ‘Teff’. 'Teff' is an online purveyor of elecletic books and offers an interesting range of good reads for their patrons. 
+This project focuses on the full-stack development for a mobile-responsive web-based e-commerce website called ‘Teff’. 
+Teff is an online purveyor of elecletic books and magazines.
+Teff's vision is to offer an interesting range of good reads for their patrons. 
 
 The website has a login feature and requires users to create an account before they are able to check out items for purchase. 
 
 # Demo
 The e-commerce website can be found here: https://teff-deployment.herokuapp.com/
-The website has been deployed successfully on heroku but currently has a couple of bugs and features that are not working. The source code, however, is available for inspection. 
 
 # Index
 1. UX
@@ -23,13 +24,13 @@ The website has been deployed successfully on heroku but currently has a couple 
 
 | User Stories| Features|
 | ------ | ------ |
-| User wants to register an account to save their checkout list and credit card details.| User Login and Authentication.|
-| User wants to browse t-shirts by size, color, price and items on sale.| Navbar with product filters and Products Page.|
+| User wants to register an account to make a purchase.| User Login and Authentication.|
 | User wants to view product details and photographs in a stand-alone page.| Product Detail Page.|
 | User wants to review number of products selected for checkout and the total price before payment.| Checkout Page (Cart).|
+| User wants to reset their password.| Password Reset Page and Functionality.|
+| User wants to update their account details.| Update Profile Form and Functionality.|
 | User wants to make payment using debit/credit for checked out items.| Stripe Payment Gateway.|
-| Admin wants to populate details for new t-shirt launch on the website.| Able to upload t-shirt image through UploadCare.|
-| Admin wants to update t-shirt inventory on the website.| Automatic update of stock count when a t-shirt is sold.|
+| Admin wants to populate details for new products on the website.| Able to create, upload, edit and delete products on Admin dashboard.|
 
 # 2. Technologies Used
 * [HTML 5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
@@ -67,8 +68,11 @@ Password: password
 
 1. Admin is able to create/edit/delete entries on the categorys.
 2. Admin is able to create/edit/delete entries on the products.
-3. User is able to create an account and login.
-4. User is able update account information on the backend.
+3. Admin is able to create/edit/delete entries on the cart_intermediary.
+4. User is able to create an account and login.
+5. User is able to reset password.
+6. User is able update account information on the backend.
+7. The web application is mobile responsive and is able to rescale accordiing on mobiles, tablets and computers.
 
 # 5. Deployment
 #### (i) Development Process
